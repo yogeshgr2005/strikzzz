@@ -1,4 +1,4 @@
-Page: Strickzzz - Refined Preview Section
+Page: Strickzzz - Animated Brand Identity
 
 ```html
 <!DOCTYPE html><html lang="en" class="scroll-smooth"><head>
@@ -46,6 +46,14 @@ Page: Strickzzz - Refined Preview Section
             0% { transform: translateY(-100%); }
             100% { transform: translateY(100%); }
         }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.15); }
+            50% { box-shadow: 0 0 40px rgba(0, 229, 255, 0.35); }
+        }
+        @keyframes fade-down {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .scanline-effect::after {
             content: "";
             position: absolute;
@@ -57,25 +65,52 @@ Page: Strickzzz - Refined Preview Section
         .glow-cyan {
             box-shadow: 0 0 30px rgba(0, 229, 255, 0.15);
         }
+        .pulsing-glow {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
         .fade-in-section {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform;
         }
         .fade-in-section.visible {
             opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .visible .stagger-item {
+            opacity: 1;
             transform: translateY(0);
         }
-        .hud-sparkline {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            animation: dash 2s ease-in-out infinite alternate;
+        .nav-animate {
+            animation: fade-down 0.5s ease-out forwards;
         }
-        @keyframes dash {
-            to { stroke-dashoffset: 0; }
+        details[open] summary iconify-icon {
+            transform: rotate(180deg);
         }
-        details summary::-webkit-details-marker {
-            display: none;
+        details {
+            transition: all 0.3s ease-in-out;
+        }
+        .screenshot-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .screenshot-hover:hover {
+            transform: scale(1.05);
+            filter: grayscale(0);
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in-section, .stagger-item, .nav-animate, .pulsing-glow {
+                animation: none !important;
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
     </style>
     <script type="application/ld+json">
@@ -97,31 +132,31 @@ Page: Strickzzz - Refined Preview Section
     }
     </script>
 </head>
-<body>
+<body class="bg-dark">
     <div class="min-h-screen bg-dark text-text font-sans selection:bg-primary selection:text-dark">
         
         <!-- Sticky Navbar -->
-        <nav class="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-md border-b border-dark-border">
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-md border-b border-dark-border nav-animate">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded overflow-hidden flex items-center justify-center">
+                    <div class="flex items-center gap-3 group cursor-pointer">
+                        <div class="w-8 h-8 rounded overflow-hidden flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                             <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142679273-ab04890e/image.png" alt="Strickzzz Logo" class="w-full h-full object-contain">
                         </div>
                         <span class="font-display text-2xl font-bold tracking-wider">STRICKZZZ</span>
                     </div>
                     
                     <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-text-muted">
-                        <a href="#features" id="nav-features" class="hover:text-primary transition-colors">Features</a>
-                        <a href="#preview" id="nav-preview" class="hover:text-primary transition-colors">Preview</a>
-                        <a href="#how" id="nav-how" class="hover:text-primary transition-colors">How it works</a>
-                        <a href="#fair-play" id="nav-fair" class="hover:text-primary transition-colors">Fair Play</a>
-                        <a href="#faq" id="nav-faq" class="hover:text-primary transition-colors">FAQ</a>
-                        <a href="#community" id="nav-community" class="hover:text-primary transition-colors">Community</a>
-                        <a href="#download" id="nav-cta" class="px-4 py-2 bg-primary text-dark rounded-full font-semibold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">Download APK</a>
+                        <a href="#features" id="nav-features-link" class="hover:text-primary transition-colors duration-200">Features</a>
+                        <a href="#preview" id="nav-preview-link" class="hover:text-primary transition-colors duration-200">Preview</a>
+                        <a href="#how" id="nav-how-link" class="hover:text-primary transition-colors duration-200">How it works</a>
+                        <a href="#fair-play" id="nav-fair-link" class="hover:text-primary transition-colors duration-200">Fair Play</a>
+                        <a href="#faq" id="nav-faq-link" class="hover:text-primary transition-colors duration-200">FAQ</a>
+                        <a href="#community" id="nav-community-link" class="hover:text-primary transition-colors duration-200">Community</a>
+                        <a href="#download" id="nav-cta-btn" class="px-4 py-2 bg-primary text-dark rounded-full font-semibold hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-primary/20">Download APK</a>
                     </div>
 
-                    <button class="md:hidden text-text p-2">
+                    <button class="md:hidden text-text p-2 hover:bg-dark-border rounded-lg transition-colors" id="mobile-menu-toggle">
                         <iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon>
                     </button>
                 </div>
@@ -129,40 +164,40 @@ Page: Strickzzz - Refined Preview Section
         </nav>
 
         <!-- Hero Section -->
-        <section class="pt-32 pb-20 px-4">
+        <section class="pt-32 pb-20 px-4 overflow-hidden">
             <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8 fade-in-section">
-                    <div class="inline-flex gap-2 flex-wrap">
+                    <div class="inline-flex gap-2 flex-wrap stagger-item" style="transition-delay: 100ms">
                         <span class="px-3 py-1 bg-dark-card border border-dark-border rounded-full text-xs font-medium text-text-muted">Android 8.0+</span>
                         <span class="px-3 py-1 bg-dark-card border border-dark-border rounded-full text-xs font-medium text-text-muted">No root needed</span>
                         <span id="hero-version-tag" class="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-xs font-medium text-primary">v1.0.0 · Latest</span>
                     </div>
-                    <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">
+                    <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight stagger-item" style="transition-delay: 200ms">
                         Play smoother.<br><span class="text-primary">See the proof.</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-text-muted max-w-lg">
+                    <p class="text-lg md:text-xl text-text-muted max-w-lg stagger-item" style="transition-delay: 300ms">
                         Strickzzz launches your games with a cleaner phone and network, shows live FPS, ping and temperatures while you play, and gives you a measured report afterwards. 
                         <span class="block mt-2 font-medium text-text">Zero placebo. Pure telemetry.</span>
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#download" id="hero-dl-btn" class="px-8 py-4 bg-primary text-dark rounded-full font-bold text-center hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                    <div class="flex flex-col sm:flex-row gap-4 stagger-item" style="transition-delay: 400ms">
+                        <a href="#download" id="hero-dl-cta" class="px-8 py-4 bg-primary text-dark rounded-full font-bold text-center hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 shadow-xl shadow-primary/10">
                             <iconify-icon icon="lucide:download"></iconify-icon>
                             Download APK
                         </a>
-                        <a href="https://github.com/yogeshgr2005/strikzzz" id="hero-gh-btn" class="px-8 py-4 border border-dark-border rounded-full font-bold text-center hover:bg-dark-card transition-colors flex items-center justify-center gap-2">
+                        <a href="https://github.com/yogeshgr2005/strikzzz" id="hero-gh-link" class="px-8 py-4 border border-dark-border rounded-full font-bold text-center hover:bg-dark-card hover:border-text-muted active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
                             <iconify-icon icon="lucide:github"></iconify-icon>
                             View on GitHub
                         </a>
                     </div>
-                    <div class="text-xs text-text-muted italic flex items-center gap-2">
+                    <div class="text-xs text-text-muted italic flex items-center gap-2 stagger-item" style="transition-delay: 500ms">
                         <iconify-icon icon="lucide:info" class="text-primary"></iconify-icon>
                         Strickzzz is the "Honest Performance Launcher"
                     </div>
                 </div>
                 
-                <div class="relative fade-in-section" style="transition-delay: 200ms">
+                <div class="relative fade-in-section" style="transition-delay: 400ms">
                     <div class="absolute -inset-4 bg-primary/20 blur-[100px] rounded-full"></div>
-                    <div class="relative mx-auto w-full max-w-[320px] aspect-[9/19] bg-[#050505] rounded-[40px] border-[8px] border-dark-border overflow-hidden shadow-2xl glow-cyan">
+                    <div class="relative mx-auto w-full max-w-[320px] aspect-[9/19] bg-[#050505] rounded-[40px] border-[8px] border-dark-border overflow-hidden shadow-2xl glow-cyan hover:scale-[1.02] transition-transform duration-500">
                         <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142058229-b368e489/image.png" alt="Strickzzz Game Center Interface" class="w-full h-full object-cover">
                         <div class="absolute top-0 left-0 w-full h-full scanline-effect"></div>
                     </div>
@@ -180,23 +215,23 @@ Page: Strickzzz - Refined Preview Section
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     <!-- Screenshot Thumbnails -->
-                    <div class="space-y-3">
-                        <div class="aspect-[9/16] bg-dark-card rounded-xl border border-dark-border overflow-hidden">
-                            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142058229-b368e489/image.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all cursor-zoom-in" alt="Game Center Screen">
+                    <div class="space-y-3 fade-in-section">
+                        <div class="aspect-[9/16] bg-dark-card rounded-xl border border-dark-border overflow-hidden screenshot-hover group">
+                            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142058229-b368e489/image.png" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0" alt="Game Center Screen">
                         </div>
-                        <p class="text-xs text-center text-text-muted">Game Center</p>
+                        <p class="text-xs text-center text-text-muted group-hover:text-text transition-colors">Game Center</p>
                     </div>
-                    <div class="space-y-3">
-                        <div class="aspect-[9/16] bg-dark-card rounded-xl border border-dark-border overflow-hidden">
-                            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142052830-f0bfa237/image.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all cursor-zoom-in" alt="Optimize Screen">
+                    <div class="space-y-3 fade-in-section" style="transition-delay: 150ms">
+                        <div class="aspect-[9/16] bg-dark-card rounded-xl border border-dark-border overflow-hidden screenshot-hover group">
+                            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142052830-f0bfa237/image.png" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0" alt="Optimize Screen">
                         </div>
-                        <p class="text-xs text-center text-text-muted">Optimization Hub</p>
+                        <p class="text-xs text-center text-text-muted group-hover:text-text transition-colors">Optimization Hub</p>
                     </div>
-                    <div class="space-y-3">
-                        <div class="aspect-[9/16] bg-dark-card rounded-xl border border-dark-border overflow-hidden">
-                            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142068888-70673303/image.png" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all cursor-zoom-in" alt="Settings Health">
+                    <div class="space-y-3 fade-in-section" style="transition-delay: 300ms">
+                        <div class="aspect-[9/16] bg-dark-card rounded-xl border border-dark-border overflow-hidden screenshot-hover group">
+                            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142068888-70673303/image.png" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0" alt="Settings Health">
                         </div>
-                        <p class="text-xs text-center text-text-muted">Privacy &amp; Health</p>
+                        <p class="text-xs text-center text-text-muted group-hover:text-text transition-colors">Privacy &amp; Health</p>
                     </div>
                 </div>
             </div>
@@ -211,73 +246,73 @@ Page: Strickzzz - Refined Preview Section
                 </div>
                 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    <!-- Feature Cards -->
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <!-- Feature Cards with staggering -->
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 0ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:gamepad" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:gamepad" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">IN PROGRESS</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Game Center</h3>
                         <p class="text-sm text-text-muted">Sync apps on your phone, choose which ones are games, and launch exactly what you picked.</p>
                     </div>
 
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 100ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:zap" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:zap" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success border border-success/20">AVAILABLE</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Boost &amp; Launch</h3>
                         <p class="text-sm text-text-muted">Pre-launch checks for storage, battery, heat and background apps, then start the game in one tap.</p>
                     </div>
 
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 200ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:gauge" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:gauge" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success border border-success/20">AVAILABLE</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Live Meter</h3>
                         <p class="text-sm text-text-muted">Track real-time ping, jitter and device temperature while you're in the heat of battle.</p>
                     </div>
 
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 300ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:layout" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:layout" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">IN PROGRESS</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">In-game HUD</h3>
                         <p class="text-sm text-text-muted">Full telemetry overlay with latency, network speed, and CPU/GPU metrics.</p>
                     </div>
 
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 0ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:activity" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:activity" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">IN PROGRESS</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Real FPS</h3>
                         <p class="text-sm text-text-muted">Frame-accurate FPS from real timing in Enhanced mode, tracking 1% lows and frame drops.</p>
                     </div>
 
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 100ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:shield-check" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:shield-check" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">IN PROGRESS</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Network Guard</h3>
                         <p class="text-sm text-text-muted">Pinpoints lag sources: Wi-Fi, ISP, or background apps. Cleans and verifies fixes.</p>
                     </div>
 
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 200ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:flask-conical" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:flask-conical" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success border border-success/20">AVAILABLE</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Network Lab</h3>
                         <p class="text-sm text-text-muted">Professional ping and bufferbloat checks to ensure your connection is gaming-ready.</p>
                     </div>
 
-                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section">
+                    <div class="bg-dark-card border border-dark-border p-6 rounded-card fade-in-section hover:border-primary/40 transition-all duration-300 group" style="transition-delay: 300ms">
                         <div class="flex justify-between items-start mb-6">
-                            <iconify-icon icon="lucide:cpu" class="text-3xl text-primary"></iconify-icon>
+                            <iconify-icon icon="lucide:cpu" class="text-3xl text-primary group-hover:scale-110 transition-transform"></iconify-icon>
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success border border-success/20">AVAILABLE</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Device Readiness</h3>
@@ -293,18 +328,18 @@ Page: Strickzzz - Refined Preview Section
                 <div class="text-center mb-16 fade-in-section">
                     <h2 class="font-display text-4xl font-bold mb-4">How it works</h2>
                     <div class="grid sm:grid-cols-3 gap-8 mt-12">
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto text-xl font-bold">1</div>
+                        <div class="space-y-4 group">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto text-xl font-bold transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary/30">1</div>
                             <h4 class="font-bold">Sync &amp; Choose</h4>
                             <p class="text-sm text-text-muted">Select the games you want to track from your installed apps.</p>
                         </div>
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto text-xl font-bold">2</div>
+                        <div class="space-y-4 group">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto text-xl font-bold transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary/30">2</div>
                             <h4 class="font-bold">Boost &amp; Launch</h4>
                             <p class="text-sm text-text-muted">One tap to clean memory and verify network stability.</p>
                         </div>
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto text-xl font-bold">3</div>
+                        <div class="space-y-4 group">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto text-xl font-bold transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary/30">3</div>
                             <h4 class="font-bold">Review &amp; Improve</h4>
                             <p class="text-sm text-text-muted">Check the telemetry reports to see how your hardware performed.</p>
                         </div>
@@ -312,7 +347,7 @@ Page: Strickzzz - Refined Preview Section
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-6 fade-in-section">
-                    <div class="p-8 bg-dark-card border border-dark-border rounded-card">
+                    <div class="p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary/20 transition-all duration-300">
                         <h4 class="text-xl font-bold mb-2">Basic</h4>
                         <p class="text-sm text-text-muted mb-6">Lightest telemetry impact. Real-time network monitoring only.</p>
                         <ul class="text-xs space-y-2 text-text-muted">
@@ -320,7 +355,7 @@ Page: Strickzzz - Refined Preview Section
                             <li class="flex items-center gap-2"><iconify-icon icon="lucide:check" class="text-success"></iconify-icon> RAM Cleaning</li>
                         </ul>
                     </div>
-                    <div class="p-8 bg-dark-card border-2 border-primary rounded-card relative shadow-2xl glow-cyan">
+                    <div class="p-8 bg-dark-card border-2 border-primary rounded-card relative pulsing-glow">
                         <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-dark text-[10px] font-bold px-3 py-1 rounded-full">RECOMMENDED</div>
                         <h4 class="text-xl font-bold mb-2">Balanced</h4>
                         <p class="text-sm text-text-muted mb-6">Full HUD + sparklines. Honest cached process monitoring.</p>
@@ -329,7 +364,7 @@ Page: Strickzzz - Refined Preview Section
                             <li class="flex items-center gap-2"><iconify-icon icon="lucide:check" class="text-success"></iconify-icon> Packet Loss Check</li>
                         </ul>
                     </div>
-                    <div class="p-8 bg-dark-card border border-dark-border rounded-card">
+                    <div class="p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary/20 transition-all duration-300">
                         <h4 class="text-xl font-bold mb-2">Advanced</h4>
                         <p class="text-sm text-text-muted mb-6">Uses Enhanced mode for deeper tuning and frame timing.</p>
                         <ul class="text-xs space-y-2 text-text-muted">
@@ -352,29 +387,29 @@ Page: Strickzzz - Refined Preview Section
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 mb-8 text-sm">
                     <ul class="space-y-4">
-                        <li class="flex gap-3 text-text-muted">
+                        <li class="flex gap-3 text-text-muted hover:translate-x-1 transition-transform">
                             <iconify-icon icon="lucide:slash" class="text-accent shrink-0 mt-1"></iconify-icon>
                             <span>Never edits game files.</span>
                         </li>
-                        <li class="flex gap-3 text-text-muted">
+                        <li class="flex gap-3 text-text-muted hover:translate-x-1 transition-transform">
                             <iconify-icon icon="lucide:slash" class="text-accent shrink-0 mt-1"></iconify-icon>
                             <span>Never reads game memory.</span>
                         </li>
-                        <li class="flex gap-3 text-text-muted">
+                        <li class="flex gap-3 text-text-muted hover:translate-x-1 transition-transform">
                             <iconify-icon icon="lucide:slash" class="text-accent shrink-0 mt-1"></iconify-icon>
                             <span>Never needs root access.</span>
                         </li>
                     </ul>
                     <ul class="space-y-4">
-                        <li class="flex gap-3 text-text-muted">
+                        <li class="flex gap-3 text-text-muted hover:translate-x-1 transition-transform">
                             <iconify-icon icon="lucide:slash" class="text-accent shrink-0 mt-1"></iconify-icon>
                             <span>Never captures or changes game traffic.</span>
                         </li>
-                        <li class="flex gap-3 text-text-muted">
+                        <li class="flex gap-3 text-text-muted hover:translate-x-1 transition-transform">
                             <iconify-icon icon="lucide:slash" class="text-accent shrink-0 mt-1"></iconify-icon>
                             <span>Never shows made-up numbers.</span>
                         </li>
-                        <li class="flex gap-3 text-text-muted">
+                        <li class="flex gap-3 text-text-muted hover:translate-x-1 transition-transform">
                             <iconify-icon icon="lucide:slash" class="text-accent shrink-0 mt-1"></iconify-icon>
                             <span>Every change is logged and undone.</span>
                         </li>
@@ -391,11 +426,11 @@ Page: Strickzzz - Refined Preview Section
             <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8 text-text-muted">
                 <span class="text-xs font-bold tracking-widest uppercase">Tested and Verified on:</span>
                 <div class="flex flex-wrap justify-center gap-6">
-                    <div class="flex items-center gap-2 px-4 py-2 bg-dark-card rounded-lg border border-dark-border">
+                    <div class="flex items-center gap-2 px-4 py-2 bg-dark-card rounded-lg border border-dark-border hover:border-primary/30 transition-colors">
                         <iconify-icon icon="lucide:smartphone" class="text-primary"></iconify-icon>
                         <span class="text-sm">vivo V2225 (Android 15)</span>
                     </div>
-                    <div class="flex items-center gap-2 px-4 py-2 bg-dark-card rounded-lg border border-dark-border opacity-50">
+                    <div class="flex items-center gap-2 px-4 py-2 bg-dark-card rounded-lg border border-dark-border opacity-50 hover:opacity-100 transition-opacity">
                         <iconify-icon icon="lucide:smartphone"></iconify-icon>
                         <span class="text-sm">Pixel 8 Pro (Android 14)</span>
                     </div>
@@ -411,28 +446,28 @@ Page: Strickzzz - Refined Preview Section
                     <p class="text-text-muted">Four simple steps to honest performance.</p>
                 </div>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center">
+                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center hover:translate-y-[-4px] transition-transform duration-300">
                         <iconify-icon icon="lucide:download-cloud" class="text-4xl text-primary mb-4"></iconify-icon>
                         <h5 class="font-bold mb-2">1. Download</h5>
                         <p class="text-xs text-text-muted">Grab the latest APK from the link below.</p>
                     </div>
-                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center">
+                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center hover:translate-y-[-4px] transition-transform duration-300">
                         <iconify-icon icon="lucide:settings-2" class="text-4xl text-primary mb-4"></iconify-icon>
                         <h5 class="font-bold mb-2">2. Allow</h5>
                         <p class="text-xs text-text-muted">Allow installs from your browser if Android asks.</p>
                     </div>
-                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center">
+                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center hover:translate-y-[-4px] transition-transform duration-300">
                         <iconify-icon icon="lucide:package-check" class="text-4xl text-primary mb-4"></iconify-icon>
                         <h5 class="font-bold mb-2">3. Install</h5>
                         <p class="text-xs text-text-muted">Run the APK and wait for completion.</p>
                     </div>
-                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center">
+                    <div class="bg-dark-card border border-dark-border p-8 rounded-card text-center hover:translate-y-[-4px] transition-transform duration-300">
                         <iconify-icon icon="lucide:toggle-right" class="text-4xl text-primary mb-4"></iconify-icon>
                         <h5 class="font-bold mb-2">4. Setup</h5>
                         <p class="text-xs text-text-muted">Open and turn on only the features you need.</p>
                     </div>
                 </div>
-                <p class="text-center mt-12 text-sm text-accent">
+                <p class="text-center mt-12 text-sm text-accent animate-pulse">
                     <iconify-icon icon="lucide:alert-triangle" class="inline mr-2"></iconify-icon>
                     Only download from this site or the official GitHub release.
                 </p>
@@ -442,42 +477,42 @@ Page: Strickzzz - Refined Preview Section
         <!-- FAQ -->
         <section id="faq" class="py-24 bg-dark-card/30">
             <div class="max-w-3xl mx-auto px-4">
-                <h2 class="font-display text-4xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
-                <div class="space-y-4">
-                    <details class="group bg-dark-card border border-dark-border rounded-xl">
+                <h2 class="font-display text-4xl font-bold mb-12 text-center fade-in-section">Frequently Asked Questions</h2>
+                <div class="space-y-4 fade-in-section">
+                    <details class="group bg-dark-card border border-dark-border rounded-xl transition-all duration-300 hover:border-primary/20">
                         <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
                             <span class="font-bold">Is it safe?</span>
-                            <iconify-icon icon="lucide:chevron-down" class="group-open:rotate-180 transition-transform"></iconify-icon>
+                            <iconify-icon icon="lucide:chevron-down" class="transition-transform duration-300"></iconify-icon>
                         </summary>
                         <div class="px-6 pb-6 text-sm text-text-muted">
                             Yes. Strickzzz is built with transparency as a core value. It doesn't use root, doesn't touch game code, and only uses standard Android APIs to gather telemetry data.
                         </div>
                     </details>
                     
-                    <details class="group bg-dark-card border border-dark-border rounded-xl">
+                    <details class="group bg-dark-card border border-dark-border rounded-xl transition-all duration-300 hover:border-primary/20">
                         <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
                             <span class="font-bold">Will it get me banned?</span>
-                            <iconify-icon icon="lucide:chevron-down" class="group-open:rotate-180 transition-transform"></iconify-icon>
+                            <iconify-icon icon="lucide:chevron-down" class="transition-transform duration-300"></iconify-icon>
                         </summary>
                         <div class="px-6 pb-6 text-sm text-text-muted">
                             Strickzzz never touches game files, memory or traffic and never uses root. It acts as an external monitor. However, no app can promise what a publisher will decide. We recommend using Safe Mode (coming soon) for high-stakes tournaments.
                         </div>
                     </details>
 
-                    <details class="group bg-dark-card border border-dark-border rounded-xl">
+                    <details class="group bg-dark-card border border-dark-border rounded-xl transition-all duration-300 hover:border-primary/20">
                         <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
                             <span class="font-bold">Is the FPS real?</span>
-                            <iconify-icon icon="lucide:chevron-down" class="group-open:rotate-180 transition-transform"></iconify-icon>
+                            <iconify-icon icon="lucide:chevron-down" class="transition-transform duration-300"></iconify-icon>
                         </summary>
                         <div class="px-6 pb-6 text-sm text-text-muted">
                             Most apps use average polling which is inaccurate. In Enhanced mode, Strickzzz reads actual frame timings from the display buffer (via wireless debugging/Shizuku) to give you true 1% lows and stutter detection.
                         </div>
                     </details>
 
-                    <details class="group bg-dark-card border border-dark-border rounded-xl">
+                    <details class="group bg-dark-card border border-dark-border rounded-xl transition-all duration-300 hover:border-primary/20">
                         <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
                             <span class="font-bold">Where is my data stored?</span>
-                            <iconify-icon icon="lucide:chevron-down" class="group-open:rotate-180 transition-transform"></iconify-icon>
+                            <iconify-icon icon="lucide:chevron-down" class="transition-transform duration-300"></iconify-icon>
                         </summary>
                         <div class="px-6 pb-6 text-sm text-text-muted">
                             Exclusively on your device. Strickzzz has no backend, no analytics, and no tracking. All performance logs are kept locally and can be deleted by you at any time.
@@ -490,19 +525,19 @@ Page: Strickzzz - Refined Preview Section
         <!-- Community Section -->
         <section id="community" class="py-24 px-4">
             <div class="max-w-7xl mx-auto">
-                <h2 class="font-display text-4xl font-bold mb-12 text-center">Community</h2>
+                <h2 class="font-display text-4xl font-bold mb-12 text-center fade-in-section">Community</h2>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <a href="https://www.instagram.com/tysonvyz/" target="_blank" rel="noopener noreferrer" class="group p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary transition-all">
+                    <a href="https://www.instagram.com/tysonvyz/" target="_blank" rel="noopener noreferrer" id="comm-insta-link" class="group p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary hover:translate-y-[-4px] transition-all duration-300 fade-in-section">
                         <iconify-icon icon="lucide:instagram" class="text-4xl text-primary mb-4 group-hover:scale-110 transition-transform"></iconify-icon>
                         <h4 class="font-bold text-xl mb-2">Instagram</h4>
                         <p class="text-sm text-text-muted italic">@tysonvyz</p>
                     </a>
-                    <a href="https://discord.gg/nzVQakhZ" target="_blank" rel="noopener noreferrer" class="group p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary transition-all">
+                    <a href="https://discord.gg/nzVQakhZ" target="_blank" rel="noopener noreferrer" id="comm-discord-link" class="group p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary hover:translate-y-[-4px] transition-all duration-300 fade-in-section" style="transition-delay: 150ms">
                         <iconify-icon icon="ic:baseline-discord" class="text-4xl text-primary mb-4 group-hover:scale-110 transition-transform"></iconify-icon>
                         <h4 class="font-bold text-xl mb-2">Discord</h4>
                         <p class="text-sm text-text-muted">Join the server</p>
                     </a>
-                    <a href="https://github.com/yogeshgr2005" target="_blank" rel="noopener noreferrer" class="group p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary transition-all">
+                    <a href="https://github.com/yogeshgr2005" target="_blank" rel="noopener noreferrer" id="comm-github-link" class="group p-8 bg-dark-card border border-dark-border rounded-card hover:border-primary hover:translate-y-[-4px] transition-all duration-300 fade-in-section" style="transition-delay: 300ms">
                         <iconify-icon icon="lucide:github" class="text-4xl text-primary mb-4 group-hover:scale-110 transition-transform"></iconify-icon>
                         <h4 class="font-bold text-xl mb-2">GitHub</h4>
                         <p class="text-sm text-text-muted">yogeshgr2005</p>
@@ -513,11 +548,11 @@ Page: Strickzzz - Refined Preview Section
 
         <!-- Final CTA -->
         <section id="download" class="py-24 px-4">
-            <div class="max-w-4xl mx-auto bg-primary rounded-card p-12 text-dark text-center shadow-2xl shadow-primary/20">
+            <div class="max-w-4xl mx-auto bg-primary rounded-card p-12 text-dark text-center shadow-2xl shadow-primary/20 hover:shadow-primary/40 transition-shadow duration-500 fade-in-section">
                 <h2 class="font-display text-5xl font-bold mb-6">Ready to see your real numbers?</h2>
                 <p class="text-dark/80 text-lg mb-8 max-w-lg mx-auto">Join other players who demand honest telemetry. No root, no lies, just performance.</p>
                 <div class="flex flex-col items-center gap-4">
-                    <a href="https://github.com/yogeshgr2005/strikzzz/releases/tag/v1" id="final-dl-btn" class="px-10 py-5 bg-dark text-primary rounded-full font-black text-xl hover:scale-105 transition-transform flex items-center gap-3">
+                    <a href="https://github.com/yogeshgr2005/strikzzz/releases/tag/v1" id="final-dl-cta-btn" class="px-10 py-5 bg-dark text-primary rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-3 shadow-2xl">
                         <iconify-icon icon="lucide:download"></iconify-icon>
                         DOWNLOAD APK
                     </a>
@@ -528,7 +563,7 @@ Page: Strickzzz - Refined Preview Section
                         <span>•</span>
                         <span id="dl-date">16 Oct 2026</span>
                     </div>
-                    <a href="https://github.com/yogeshgr2005/strikzzz/releases" class="text-xs underline hover:text-dark/60">All releases</a>
+                    <a href="https://github.com/yogeshgr2005/strikzzz/releases" id="all-releases-link" class="text-xs underline hover:text-dark/60 transition-colors">All releases</a>
                 </div>
                 <p class="mt-8 text-xs font-medium italic opacity-60">Android may ask you to allow installs from your browser.</p>
             </div>
@@ -538,8 +573,8 @@ Page: Strickzzz - Refined Preview Section
         <footer class="py-16 px-4 border-t border-dark-border">
             <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
                 <div class="col-span-2">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-6 h-6 rounded overflow-hidden flex items-center justify-center">
+                    <div class="flex items-center gap-3 mb-6 group cursor-pointer">
+                        <div class="w-6 h-6 rounded overflow-hidden flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                             <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/b8258456-e575-4b82-8211-ecf22586130f/1792142679273-ab04890e/image.png" alt="Strickzzz Logo" class="w-full h-full object-contain">
                         </div>
                         <span class="font-display text-xl font-bold tracking-wider">STRICKZZZ</span>
@@ -553,17 +588,17 @@ Page: Strickzzz - Refined Preview Section
                 <div>
                     <h6 class="text-xs font-bold tracking-widest uppercase mb-6">Quick Links</h6>
                     <ul class="text-sm text-text-muted space-y-3">
-                        <li><a href="#features" class="hover:text-primary">Features</a></li>
-                        <li><a href="#preview" class="hover:text-primary">Preview</a></li>
-                        <li><a href="#how" class="hover:text-primary">How it works</a></li>
-                        <li><a href="#faq" class="hover:text-primary">FAQ</a></li>
+                        <li><a href="#features" id="footer-features-link" class="hover:text-primary transition-colors duration-200">Features</a></li>
+                        <li><a href="#preview" id="footer-preview-link" class="hover:text-primary transition-colors duration-200">Preview</a></li>
+                        <li><a href="#how" id="footer-how-link" class="hover:text-primary transition-colors duration-200">How it works</a></li>
+                        <li><a href="#faq" id="footer-faq-link" class="hover:text-primary transition-colors duration-200">FAQ</a></li>
                     </ul>
                 </div>
 
                 <div class="flex md:justify-end gap-6">
-                    <a href="#" class="text-text-muted hover:text-primary transition-colors text-2xl"><iconify-icon icon="lucide:instagram"></iconify-icon></a>
-                    <a href="#" class="text-text-muted hover:text-primary transition-colors text-2xl"><iconify-icon icon="ic:baseline-discord"></iconify-icon></a>
-                    <a href="#" class="text-text-muted hover:text-primary transition-colors text-2xl"><iconify-icon icon="lucide:github"></iconify-icon></a>
+                    <a href="#" id="footer-insta-social" class="text-text-muted hover:text-primary transition-colors duration-200 text-2xl"><iconify-icon icon="lucide:instagram"></iconify-icon></a>
+                    <a href="#" id="footer-discord-social" class="text-text-muted hover:text-primary transition-colors duration-200 text-2xl"><iconify-icon icon="ic:baseline-discord"></iconify-icon></a>
+                    <a href="#" id="footer-github-social" class="text-text-muted hover:text-primary transition-colors duration-200 text-2xl"><iconify-icon icon="lucide:github"></iconify-icon></a>
                 </div>
             </div>
             <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-dark-border flex justify-between items-center text-[10px] text-text-muted uppercase tracking-widest">
@@ -577,7 +612,8 @@ Page: Strickzzz - Refined Preview Section
     <script>
         // Intersection Observer for scroll animations
         const observerOptions = {
-            threshold: 0.1
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -599,8 +635,6 @@ Page: Strickzzz - Refined Preview Section
             const TAG = 'v1';
             
             try {
-                // In real app, we'd fetch actual data
-                // For preview, we show the static data matching user prompt requirements
                 console.log("Fetching release info...");
             } catch (e) {
                 console.error(e);
